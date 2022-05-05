@@ -21,35 +21,34 @@ const SignUpForm = () => {
         setFormFields(defaultFormFields);
     }
     const handleSubmit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  if(password != confirmPassword) {
-      alert("your password does not match");
-      return;
-  }
-
-  try{
-        const {user} = await createAuthUserWithEmailAndPassword( email, password);
-       
-        await createUserDocumentFromAuth(user, {displayName});
-        resetFormFields();
-
-
-    }catch(error){
-        console.log(error);
-        if(error.code === 'auth/weak-password') {
-            alert('your password is to weak! Pleas enter at least 6 characters!');
-        }
-        if(error.code === 'auth/email-already-in-use') {
-            alert('cannot create user, email already in use');
-        }else{
-            console.log('user creation encounted an error', error);
-        }
-        console.log("user error");
-  }
-
-
+    if(password != confirmPassword) {
+        alert("your password does not match");
+        return;
     }
+
+    try{
+            const {user} = await createAuthUserWithEmailAndPassword( email, password);
+        
+            await createUserDocumentFromAuth(user, {displayName});
+            resetFormFields();
+
+
+        }catch(error){
+            console.log(error);
+            if(error.code === 'auth/weak-password') {
+                alert('your password is to weak! Pleas enter at least 6 characters!');
+            }
+            if(error.code === 'auth/email-already-in-use') {
+                alert('cannot create user, email already in use');
+            }else{
+                console.log('user creation encounted an error', error);
+            }
+            console.log("user error");
+    }
+    }
+
     const handleChange = (event) =>{
          const {name, value} = event.target;
 
